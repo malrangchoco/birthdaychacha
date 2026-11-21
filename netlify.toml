@@ -1,7 +1,15 @@
 [build]
   base = "."
   publish = "public"
-  command = "npm run build"
+  command = '''
+if [ ! -f public/index.html ]; then
+  mkdir -p public && cp index.html style.css app.js config.js public/ || exit 1
+fi
+if [ ! -f netlify/functions/api.mjs ]; then
+  mkdir -p netlify/functions && cp api.mjs netlify/functions/api.mjs || exit 1
+fi
+npm run build
+'''
 
 [functions]
   directory = "netlify/functions"
