@@ -1,39 +1,70 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f8f4e8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1e6d5">
+  <meta name="description" content="한 장의 종이에 모으는 생일 축하 편지.">
   <title>생일 롤링페이퍼</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/config.js" defer></script>
+  <script src="/app.js" defer></script>
 </head>
 <body>
-  <main class="page">
-    <header class="top">
-      <p class="eyebrow">HAPPY BIRTHDAY ♡</p>
-      <h1 id="title">생일 축하해!</h1>
-      <p class="intro" id="intro">한 장의 종이에 우리 마음을 모아보자.</p>
+  <main class="sheet">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="recipient">To. <span id="recipient">오늘의 주인공</span></p>
+        <h1 id="title">생일 축하해!</h1>
+        <p class="intro" id="intro">한 장의 종이에 우리 마음을 모아보자.</p>
+        <a href="#write" class="button primary">편지 쓰기 <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="cake-sticker" aria-hidden="true">
+        <span class="sparkle sparkle-one">✦</span>
+        <span class="sparkle sparkle-two">✧</span>
+        <span class="sparkle sparkle-three">✦</span>
+        <div class="cake">
+          <div class="plate"></div>
+          <div class="sponge"></div>
+          <div class="icing"></div>
+          <div class="candle"><span></span></div>
+        </div>
+      </div>
     </header>
-    <section class="paper" aria-label="함께 쓰는 롤링페이퍼">
-      <div class="paper-top"><span>TO. <b id="recipient">오늘의 주인공</b></span><span class="spark">✳ ✴ ✳</span></div>
-      <div class="notes" id="notes" aria-live="polite"></div>
-      <form id="writeForm" class="compose">
-        <div class="compose-heading"><span class="plus">✎</span> 나도 한마디 남기기</div>
-        <label for="writer">FROM.</label>
-        <input id="writer" name="writer" maxlength="20" placeholder="이름이나 별명" autocomplete="nickname" required />
-        <label for="message">MESSAGE.</label>
-        <textarea id="message" name="message" maxlength="600" rows="4" placeholder="생일 축하해! 하고 싶은 말을 적어줘 :)" required></textarea>
-        <input class="honey" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <div class="form-bottom"><span id="count">0 / 600</span><button id="submit" type="submit">종이에 붙이기 ↗</button></div>
-        <p id="status" class="status" role="status"></p>
+
+    <div class="board-layout">
+      <section class="letters" aria-labelledby="letters-heading">
+        <div class="section-heading">
+          <h2 id="letters-heading">모인 편지</h2>
+          <p id="letter-count" class="letter-count" hidden></p>
+        </div>
+        <p class="board-status" id="board-status" role="status">편지를 불러오는 중…</p>
+        <div class="notes" id="notes"></div>
+        <noscript>편지를 읽고 쓰려면 브라우저에서 자바스크립트를 켜줘.</noscript>
+      </section>
+
+      <form class="compose" id="write" aria-labelledby="compose-heading" method="post">
+        <h2 id="compose-heading">나도 편지 쓰기</h2>
+        <p class="compose-intro">여기에 붙인 편지는 링크를 가진 누구나 읽을 수 있어.</p>
+        <label for="writer">이름</label>
+        <input id="writer" name="name" maxlength="20" placeholder="이름이나 별명" autocomplete="nickname" required>
+        <label for="message">축하 메시지</label>
+        <textarea id="message" name="message" minlength="3" maxlength="600" rows="5" placeholder="생일 축하해! 하고 싶은 말을 적어줘." required></textarea>
+        <div hidden><input name="website" id="website" tabindex="-1" autocomplete="off"></div>
+        <p class="character-count" id="count">0 / 600</p>
+        <button id="submit" class="button primary" type="submit">편지 붙이기 <span aria-hidden="true">♡</span></button>
+        <p id="status" class="form-status" role="status"></p>
       </form>
-    </section>
-    <footer>마음은 모일수록 커지니까 ♡ <button id="share" type="button">링크 복사</button></footer>
+    </div>
+
+    <footer class="footer">
+      <button type="button" class="button share" id="share">링크 복사 <span aria-hidden="true">↗</span></button>
+      <input id="share-link" class="share-link" aria-label="공유할 링크" readonly hidden>
+      <p id="share-status" class="share-status" role="status"></p>
+    </footer>
   </main>
-  <script src="/config.js"></script>
-  <script src="/app.js"></script>
 </body>
 </html>
